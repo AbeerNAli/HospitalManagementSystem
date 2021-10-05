@@ -1,0 +1,66 @@
+﻿@model ProjectMVC.Context.Hospital
+
+@{
+    ViewBag.Title = "Hospital";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<h2>Hospital</h2>
+
+<div>
+    <h4>Hospital</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.Logo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Logo)
+        </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumOfAllBed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumOfAllBed)
+        </dd>
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.NumOfAvailableBed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumOfAvailableBed)
+        </dd>*@
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

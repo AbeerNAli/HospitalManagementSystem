@@ -1,0 +1,56 @@
+﻿@model IEnumerable<ProjectMVC.Context.PatientDoctor>
+
+@{
+    ViewBag.Title = "History";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<h2>History OF My Illness</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Doctor.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Patient.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Illness.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Illness.Specialty.Name)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.Diagnosis)
+        </th>*@
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Doctor.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Patient.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Illness.Name)
+        </td>
+        @*<th>
+            @Html.DisplayNameFor(model => model.Illness.Specialty.Name)
+        </th>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.Diagnosis)
+        </td>
+        @*<td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+        </td>*@
+    </tr>
+}
+
+</table>

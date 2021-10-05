@@ -1,0 +1,213 @@
+﻿@model IEnumerable<ProjectMVC.Context.Reservation>
+
+@{
+    Layout = "~/Views/Shared/_LayoutHospital.cshtml";
+}
+
+
+<br />
+<h3> All Patient </h3>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ReservationDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PatientID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HospitalID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SpecialtyID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateOut)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AdmitOrDecline)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.DoctorID)
+        </th>*@
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReservationDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Patient.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Hospital.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Specialty.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateOut)
+        </td>
+
+        <td>
+
+            @{
+                var x = item.AdmitOrDecline;
+                if (x == true)
+                { <label class="form-check-label" for="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" id="@item.ID" checked>
+                        Confirm Or cancel
+                    </label> }
+                else
+                { <label class="form-check-label" for="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" id="@item.ID">
+                        Confirm Or cancel
+                    </label>}
+
+            }
+
+        </td>
+        <td>
+            <button type="button" class="btn btn-primary" onclick="confirmation(@item.ID)">Confirm</button>
+
+        </td>
+        <td>
+            @*@Html.ActionLink("History Illness", "History", "Hospital",  new { id = item.PatientID @*,type = "button" ,@class="btn btn-primary" })*@
+            @Html.ActionLink("History Illness", "History", new { id = item.Patient.ID } , new {  type = "button", @class = "btn btn-primary" })
+        </td>
+    </tr>
+    }
+
+</table>
+
+
+@Html.ActionLink("Back to Spectiality" , "ShowSpeciality", "Hospital")
+
+
+@*
+<table class="table table-striped table-hover ">
+    <thead>
+        <tr class="success">
+            <th>#</th>
+            <th>Column heading</th>
+            <th>Column heading</th>
+            <th>Column heading</th>
+        </tr>
+    </thead>
+    <tbody id="Accept_Reservation">
+
+    </tbody>
+</table>*@
+
+@section Scripts{
+    <script>
+//        $(document).ready(function () {
+////$(document).on('click', '#updatesupplier', function () {
+        function confirmation(id) {
+
+           // $(id).click(function () {
+                var confirmed;
+            if (document.getElementById(id).checked == true) {
+                    //var id = $('#confirm').val();
+                    confirmed = "True";
+                } else {
+                    confirmed = "False";
+                }
+                myData = "id=" + id + "&confirm=" + confirmed;
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:62277/Hospital/ConfirmReservation",
+                    data: myData,
+                    success: function (response) {
+                        if (response.result == 0) {
+                            alert("Failed ");
+                        }
+                            alert("success ");
+                        $("#Accept_Reservation").empty();
+                       // $("#Accept_Reservation").append("<option>Please Select the Illness</option>")
+
+                        response.forEach(function (entry) {
+                            //$("#Accept_Reservation").append("<option value =" + entry.ID + ">" + entry.Name + "</option>")
+                            $("#Accept_Reservation").append("<tr class='active'> <td>" + entry.PatientID + "</td> <td>" + entry.HospitalID + "</td> <td>" + entry.SpecialtyID + " </td> <td>" + entry.AdmitOrDecline + "</td>  </tr >")
+
+                        });
+
+                    }
+                   
+
+                        })
+
+                    }
+              
+      
+    </script>
+    }
+    @*//$("#HospitalId").change(function () {
+        //    Hospital = $(this).val();
+        //    $.ajax({
+        //        type: "GET",
+        //        url: "http://localhost:50960/User/GetSpeciality?id=" + Hospital,
+
+        //        success: function (response) {
+
+        //            $("#SpecialityId").empty();
+        //            $("#SpecialityId").append("<option>Please Select the Speciality</option>")
+
+        //            response.forEach(function (entry) {
+        //                $("#SpecialityId").append("<option value=" + entry.ID + ">" + entry.Name + "</option>")
+        //            });
+
+        //        }
+        //    })
+
+        //})
+
+        //// $("#success").show(1000);
+
+        //$("#SpecialityId").change(function () {
+        //    Speciality = $(this).val();
+        //    Hospital = $('#HospitalId').val();
+        //    $.ajax({
+        //        type: "GET",
+        //        url: "http://localhost:50960/User/GetDoctor?Hid=" + Hospital + "&Sid=" + Speciality,
+
+        //        success: function (response) {
+
+        //            $("#DoctorId").empty();
+        //            $("#DoctorId").append("<option>Please Select the Doctor</option>")
+
+        //            response.forEach(function (entry) {
+        //                $("#DoctorId").append("<option value=" + entry.ID + ">" + entry.Name + "</option>")
+        //            });
+
+        //        }
+        //    })
+
+        //})
+        //$("#DoctorId").change(function () {
+        //    Doctor = $(this).val();
+        //    Speciality = $('#SpecialityId').val();
+        //    Hospital = $('#HospitalId').val();
+        //    $.ajax({
+        //        type: "GET",
+        //        url: "http://localhost:50960/User/Getschedule?Hid=" + Hospital + "&Sid=" + Speciality + "&Did=" + Doctor,
+
+        //        success: function (response) {
+
+        //            if (response) {
+        //                $("#day").empty();
+        //                $("#day").append("the scudual start from : " + response.FromDay + " To: " + response.ToDay)
+        //            } else {
+        //                $("#noday").empty();
+        //                $("#noday").append("Sorry! There is no  scudual ")
+
+        //            }
+
+        //        }
+        //    })
+
+        //})*@
+

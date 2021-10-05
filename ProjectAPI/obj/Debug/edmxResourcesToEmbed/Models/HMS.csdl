@@ -1,0 +1,384 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HMSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Doctor">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NationalID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Phone" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+    <Property Name="DescriptionJob" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="SpecialtyID" Type="Int32" Nullable="false" />
+    <Property Name="HospitalID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Hospital" Relationship="Self.FK__Doctor__Hospital__4E88ABD4" FromRole="Doctor" ToRole="Hospital" />
+    <NavigationProperty Name="Specialty" Relationship="Self.FK__Doctor__Specialt__4D94879B" FromRole="Doctor" ToRole="Specialty" />
+    <NavigationProperty Name="OutpatientClinics" Relationship="Self.FK__Outpatien__Docto__5629CD9C" FromRole="Doctor" ToRole="OutpatientClinics" />
+    <NavigationProperty Name="PatientDoctors" Relationship="Self.FK__PatientDo__Docto__5165187F" FromRole="Doctor" ToRole="PatientDoctor" />
+  </EntityType>
+  <EntityType Name="Hospital">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Phone" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="HospitalLongitude" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="HospitalLatitude" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="NumOfAllBed" Type="Int32" />
+    <NavigationProperty Name="Doctors" Relationship="Self.FK__Doctor__Hospital__4E88ABD4" FromRole="Hospital" ToRole="Doctor" />
+    <NavigationProperty Name="Reservations" Relationship="Self.FK__Reservati__Hospi__59FA5E80" FromRole="Hospital" ToRole="Reservation" />
+    <NavigationProperty Name="UserAccounts" Relationship="Self.FK__UserAccou__Hospi__619B8048" FromRole="Hospital" ToRole="UserAccounts" />
+  </EntityType>
+  <EntityType Name="Illness">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="SpecialtyID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Specialty" Relationship="Self.FK__Illness__Special__4AB81AF0" FromRole="Illness" ToRole="Specialty" />
+    <NavigationProperty Name="PatientDoctors" Relationship="Self.FK__PatientDo__Illne__534D60F1" FromRole="Illness" ToRole="PatientDoctor" />
+  </EntityType>
+  <EntityType Name="OutpatientClinic">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DoctorID" Type="Int32" Nullable="false" />
+    <Property Name="FromDay" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ToDay" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Doctor" Relationship="Self.FK__Outpatien__Docto__5629CD9C" FromRole="OutpatientClinics" ToRole="Doctor" />
+    <NavigationProperty Name="Reservations" Relationship="Self.FK__Reservati__BookI__5BE2A6F2" FromRole="OutpatientClinics" ToRole="Reservation" />
+  </EntityType>
+  <EntityType Name="Patient">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NationalID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Phone" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+    <Property Name="Age" Type="Int32" />
+    <NavigationProperty Name="PatientDoctors" Relationship="Self.FK__PatientDo__Patie__52593CB8" FromRole="Patient" ToRole="PatientDoctor" />
+    <NavigationProperty Name="Reservations" Relationship="Self.FK__Reservati__Patie__59063A47" FromRole="Patient" ToRole="Reservation" />
+    <NavigationProperty Name="UserAccounts" Relationship="Self.FK__UserAccou__Patie__628FA481" FromRole="Patient" ToRole="UserAccounts" />
+  </EntityType>
+  <EntityType Name="PatientDoctor">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DoctorID" Type="Int32" />
+    <Property Name="PatientID" Type="Int32" />
+    <Property Name="IllnessID" Type="Int32" />
+    <Property Name="Diagnosis" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Doctor" Relationship="Self.FK__PatientDo__Docto__5165187F" FromRole="PatientDoctor" ToRole="Doctor" />
+    <NavigationProperty Name="Illness" Relationship="Self.FK__PatientDo__Illne__534D60F1" FromRole="PatientDoctor" ToRole="Illness" />
+    <NavigationProperty Name="Patient" Relationship="Self.FK__PatientDo__Patie__52593CB8" FromRole="PatientDoctor" ToRole="Patient" />
+  </EntityType>
+  <EntityType Name="Reservation">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ReservationDate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PatientID" Type="Int32" Nullable="false" />
+    <Property Name="HospitalID" Type="Int32" Nullable="false" />
+    <Property Name="SpecialtyID" Type="Int32" Nullable="false" />
+    <Property Name="DateOut" Type="DateTime" Precision="0" />
+    <Property Name="BookID" Type="Int32" />
+    <Property Name="AdmitOrDecline" Type="Boolean" />
+    <NavigationProperty Name="Hospital" Relationship="Self.FK__Reservati__Hospi__59FA5E80" FromRole="Reservation" ToRole="Hospital" />
+    <NavigationProperty Name="OutpatientClinic" Relationship="Self.FK__Reservati__BookI__5BE2A6F2" FromRole="Reservation" ToRole="OutpatientClinics" />
+    <NavigationProperty Name="Patient" Relationship="Self.FK__Reservati__Patie__59063A47" FromRole="Reservation" ToRole="Patient" />
+    <NavigationProperty Name="Specialty" Relationship="Self.FK__Reservati__Speci__5AEE82B9" FromRole="Reservation" ToRole="Specialty" />
+  </EntityType>
+  <EntityType Name="RoleUser">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="90" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="UserAccounts" Relationship="Self.FK__UserAccou__RoleI__60A75C0F" FromRole="RoleUser" ToRole="UserAccounts" />
+  </EntityType>
+  <EntityType Name="Specialty">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Doctors" Relationship="Self.FK__Doctor__Specialt__4D94879B" FromRole="Specialty" ToRole="Doctor" />
+    <NavigationProperty Name="Illnesses" Relationship="Self.FK__Illness__Special__4AB81AF0" FromRole="Specialty" ToRole="Illness" />
+    <NavigationProperty Name="Reservations" Relationship="Self.FK__Reservati__Speci__5AEE82B9" FromRole="Specialty" ToRole="Reservation" />
+  </EntityType>
+  <EntityType Name="UserAccount">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" MaxLength="90" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" MaxLength="90" FixedLength="false" Unicode="false" />
+    <Property Name="RoleID" Type="Int32" />
+    <Property Name="HospitalID" Type="Int32" />
+    <Property Name="PatientID" Type="Int32" />
+    <NavigationProperty Name="Hospital" Relationship="Self.FK__UserAccou__Hospi__619B8048" FromRole="UserAccounts" ToRole="Hospital" />
+    <NavigationProperty Name="Patient" Relationship="Self.FK__UserAccou__Patie__628FA481" FromRole="UserAccounts" ToRole="Patient" />
+    <NavigationProperty Name="RoleUser" Relationship="Self.FK__UserAccou__RoleI__60A75C0F" FromRole="UserAccounts" ToRole="RoleUser" />
+  </EntityType>
+  <Association Name="FK__Doctor__Hospital__4E88ABD4">
+    <End Role="Hospital" Type="Self.Hospital" Multiplicity="1" />
+    <End Role="Doctor" Type="Self.Doctor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hospital">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Doctor">
+        <PropertyRef Name="HospitalID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Doctor__Specialt__4D94879B">
+    <End Role="Specialty" Type="Self.Specialty" Multiplicity="1" />
+    <End Role="Doctor" Type="Self.Doctor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Specialty">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Doctor">
+        <PropertyRef Name="SpecialtyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Outpatien__Docto__5629CD9C">
+    <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+    <End Role="OutpatientClinics" Type="Self.OutpatientClinic" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctor">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="OutpatientClinics">
+        <PropertyRef Name="DoctorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PatientDo__Docto__5165187F">
+    <End Role="Doctor" Type="Self.Doctor" Multiplicity="0..1" />
+    <End Role="PatientDoctor" Type="Self.PatientDoctor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctor">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PatientDoctor">
+        <PropertyRef Name="DoctorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Reservati__Hospi__59FA5E80">
+    <End Role="Hospital" Type="Self.Hospital" Multiplicity="1" />
+    <End Role="Reservation" Type="Self.Reservation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hospital">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Reservation">
+        <PropertyRef Name="HospitalID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__UserAccou__Hospi__619B8048">
+    <End Role="Hospital" Type="Self.Hospital" Multiplicity="0..1" />
+    <End Role="UserAccounts" Type="Self.UserAccount" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hospital">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="UserAccounts">
+        <PropertyRef Name="HospitalID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Illness__Special__4AB81AF0">
+    <End Role="Specialty" Type="Self.Specialty" Multiplicity="1" />
+    <End Role="Illness" Type="Self.Illness" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Specialty">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Illness">
+        <PropertyRef Name="SpecialtyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PatientDo__Illne__534D60F1">
+    <End Role="Illness" Type="Self.Illness" Multiplicity="0..1" />
+    <End Role="PatientDoctor" Type="Self.PatientDoctor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Illness">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PatientDoctor">
+        <PropertyRef Name="IllnessID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Reservati__BookI__5BE2A6F2">
+    <End Role="OutpatientClinics" Type="Self.OutpatientClinic" Multiplicity="0..1" />
+    <End Role="Reservation" Type="Self.Reservation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OutpatientClinics">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Reservation">
+        <PropertyRef Name="BookID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PatientDo__Patie__52593CB8">
+    <End Role="Patient" Type="Self.Patient" Multiplicity="0..1" />
+    <End Role="PatientDoctor" Type="Self.PatientDoctor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patient">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PatientDoctor">
+        <PropertyRef Name="PatientID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Reservati__Patie__59063A47">
+    <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+    <End Role="Reservation" Type="Self.Reservation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patient">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Reservation">
+        <PropertyRef Name="PatientID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__UserAccou__Patie__628FA481">
+    <End Role="Patient" Type="Self.Patient" Multiplicity="0..1" />
+    <End Role="UserAccounts" Type="Self.UserAccount" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patient">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="UserAccounts">
+        <PropertyRef Name="PatientID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Reservati__Speci__5AEE82B9">
+    <End Role="Specialty" Type="Self.Specialty" Multiplicity="1" />
+    <End Role="Reservation" Type="Self.Reservation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Specialty">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Reservation">
+        <PropertyRef Name="SpecialtyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__UserAccou__RoleI__60A75C0F">
+    <End Role="RoleUser" Type="Self.RoleUser" Multiplicity="0..1" />
+    <End Role="UserAccounts" Type="Self.UserAccount" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RoleUser">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="UserAccounts">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="HMSEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Doctors" EntityType="Self.Doctor" />
+    <EntitySet Name="Hospitals" EntityType="Self.Hospital" />
+    <EntitySet Name="Illnesses" EntityType="Self.Illness" />
+    <EntitySet Name="OutpatientClinics" EntityType="Self.OutpatientClinic" />
+    <EntitySet Name="Patients" EntityType="Self.Patient" />
+    <EntitySet Name="PatientDoctors" EntityType="Self.PatientDoctor" />
+    <EntitySet Name="Reservations" EntityType="Self.Reservation" />
+    <EntitySet Name="RoleUsers" EntityType="Self.RoleUser" />
+    <EntitySet Name="Specialties" EntityType="Self.Specialty" />
+    <EntitySet Name="UserAccounts" EntityType="Self.UserAccount" />
+    <AssociationSet Name="FK__Doctor__Hospital__4E88ABD4" Association="Self.FK__Doctor__Hospital__4E88ABD4">
+      <End Role="Hospital" EntitySet="Hospitals" />
+      <End Role="Doctor" EntitySet="Doctors" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Doctor__Specialt__4D94879B" Association="Self.FK__Doctor__Specialt__4D94879B">
+      <End Role="Specialty" EntitySet="Specialties" />
+      <End Role="Doctor" EntitySet="Doctors" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Outpatien__Docto__5629CD9C" Association="Self.FK__Outpatien__Docto__5629CD9C">
+      <End Role="Doctor" EntitySet="Doctors" />
+      <End Role="OutpatientClinics" EntitySet="OutpatientClinics" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PatientDo__Docto__5165187F" Association="Self.FK__PatientDo__Docto__5165187F">
+      <End Role="Doctor" EntitySet="Doctors" />
+      <End Role="PatientDoctor" EntitySet="PatientDoctors" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Reservati__Hospi__59FA5E80" Association="Self.FK__Reservati__Hospi__59FA5E80">
+      <End Role="Hospital" EntitySet="Hospitals" />
+      <End Role="Reservation" EntitySet="Reservations" />
+    </AssociationSet>
+    <AssociationSet Name="FK__UserAccou__Hospi__619B8048" Association="Self.FK__UserAccou__Hospi__619B8048">
+      <End Role="Hospital" EntitySet="Hospitals" />
+      <End Role="UserAccounts" EntitySet="UserAccounts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Illness__Special__4AB81AF0" Association="Self.FK__Illness__Special__4AB81AF0">
+      <End Role="Specialty" EntitySet="Specialties" />
+      <End Role="Illness" EntitySet="Illnesses" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PatientDo__Illne__534D60F1" Association="Self.FK__PatientDo__Illne__534D60F1">
+      <End Role="Illness" EntitySet="Illnesses" />
+      <End Role="PatientDoctor" EntitySet="PatientDoctors" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Reservati__BookI__5BE2A6F2" Association="Self.FK__Reservati__BookI__5BE2A6F2">
+      <End Role="OutpatientClinics" EntitySet="OutpatientClinics" />
+      <End Role="Reservation" EntitySet="Reservations" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PatientDo__Patie__52593CB8" Association="Self.FK__PatientDo__Patie__52593CB8">
+      <End Role="Patient" EntitySet="Patients" />
+      <End Role="PatientDoctor" EntitySet="PatientDoctors" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Reservati__Patie__59063A47" Association="Self.FK__Reservati__Patie__59063A47">
+      <End Role="Patient" EntitySet="Patients" />
+      <End Role="Reservation" EntitySet="Reservations" />
+    </AssociationSet>
+    <AssociationSet Name="FK__UserAccou__Patie__628FA481" Association="Self.FK__UserAccou__Patie__628FA481">
+      <End Role="Patient" EntitySet="Patients" />
+      <End Role="UserAccounts" EntitySet="UserAccounts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Reservati__Speci__5AEE82B9" Association="Self.FK__Reservati__Speci__5AEE82B9">
+      <End Role="Specialty" EntitySet="Specialties" />
+      <End Role="Reservation" EntitySet="Reservations" />
+    </AssociationSet>
+    <AssociationSet Name="FK__UserAccou__RoleI__60A75C0F" Association="Self.FK__UserAccou__RoleI__60A75C0F">
+      <End Role="RoleUser" EntitySet="RoleUsers" />
+      <End Role="UserAccounts" EntitySet="UserAccounts" />
+    </AssociationSet>
+    <EntitySet Name="HospitalsApis" EntityType="HMSModel.HospitalsApi" />
+  </EntityContainer>
+  <EntityType Name="HospitalsApi">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="Name" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Phone" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="HospitalLongitude" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="HospitalLatitude" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="NumOfAllBed" Type="Int32" />
+    <Property Name="NumAvailable" Type="Int32" />
+  </EntityType>
+</Schema>

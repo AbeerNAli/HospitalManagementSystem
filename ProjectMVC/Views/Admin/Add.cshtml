@@ -1,0 +1,56 @@
+﻿@model ProjectMVC.Context.Hospital
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>New Hospital</h2>
+
+
+@using (Html.BeginForm("POST"))
+{
+    <div>
+        @Html.LabelFor(x => x.Name)
+        @Html.TextBoxFor(y => y.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Name)
+
+    </div>
+    <div>
+        @Html.LabelFor(x => x.Address)
+        @Html.TextBoxFor(y => y.Address, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Address)
+
+    </div>
+    <div>
+        @Html.LabelFor(x => x.Phone)
+        @Html.TextBoxFor(y => y.Phone, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Phone)
+
+    </div>
+    <div>
+        @Html.LabelFor(x => x.NumOfAllBed)
+        @Html.TextBoxFor(y => y.NumOfAllBed, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.NumOfAllBed)
+
+    </div>
+    @*<div>
+            @Html.LabelFor(x => x.NumOfAvailableBed)
+            @Html.TextBoxFor(y => y.NumOfAvailableBed, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.NumOfAvailableBed)
+
+        </div>*@
+    <div>
+        @Html.LabelFor(x => x.HospitalLongitude)
+        @Html.TextBoxFor(y => y.HospitalLongitude, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.HospitalLongitude)
+
+    </div>
+    <div>
+        @Html.LabelFor(x => x.HospitalLatitude)
+        @Html.TextBoxFor(y => y.HospitalLatitude, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.HospitalLatitude)
+
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+
+}

@@ -1,0 +1,153 @@
+﻿@model ProjectMVC.ViewModel.PatientSignUp
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+    <title>Login V3</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="~/images/icons/favicon.ico" />
+
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/fonts/iconic/css/material-design-iconic-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+
+    <link href="~/Content/SignUp/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/SignUp/css/main.css" rel="stylesheet" type="text/css" />
+    <!--===============================================================================================-->
+</head>
+
+<div class="limiter">
+    <div class="container-login100" style="background-image: url('../../images/bg-01.jpg');">
+        <div class="wrap-login100">
+          
+
+
+            @using (Html.BeginForm("POST"))
+            {
+
+                <span class="login100-form-logo">
+                    <i class="zmdi zmdi-landscape"></i>
+                </span>
+
+                <span class="login100-form-title p-b-34 p-t-27">
+                    Sign UP
+                </span>
+                @Html.AntiForgeryToken()
+
+
+
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="wrap-input100 validate-input">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "input100", type = "text", placeholder = "Name" } })
+                    <span class="focus-input100" data-placeholder="&#xf207;"></span>
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+
+
+                <div class="wrap-input100 validate-input">
+                    @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "input100", type = "text", placeholder = "User name" } })
+                    <span class="focus-input100" data-placeholder="&#xf207;"></span>
+                    @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                </div>
+
+
+                <div class="wrap-input100 validate-input">
+                    @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "input100", type = "password", name = "pass", placeholder = "Password" } })
+                    <span class="focus-input100" data-placeholder="&#xf191;"></span>
+                    @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                </div>
+                <div class="wrap-input100 validate-input">
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "input100", type = "email", placeholder = "Email" } })
+                    <span class="focus-input100" data-placeholder="&#xf207;"></span>
+                    @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="wrap-input100 validate-input">
+                    @Html.EditorFor(model => model.NationalID, new { htmlAttributes = new { @class = "input100", type = "text", placeholder = "National ID" } })
+                    <span class="focus-input100" data-placeholder="&#xf207;"></span>
+                    @Html.ValidationMessageFor(model => model.NationalID, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="wrap-input100 validate-input">
+                    @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "input100", type = "text", placeholder = "UAddress" } })
+                    <span class="focus-input100" data-placeholder="&#xf207;"></span>
+                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="wrap-input100 validate-input">
+                    @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "input100", type = "number", placeholder = "Age" } })
+                    <span class="focus-input100" data-placeholder="&#xf207;"></span>
+                    @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="wrap-input100 validate-input">
+                    @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "input100", type = "number", placeholder = "Phone" } })
+                    <span class="focus-input100" data-placeholder="&#xf207;"></span>
+                    @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                </div>
+
+                @*<div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input value="Sign Up" class="btn btn-default" />
+                    </div>
+                </div>*@
+                <div class="container-login100-form-btn"  type="submit">
+                    <button class="login100-form-btn">
+                        SignUP
+                    </button>
+                </div>
+
+
+            }
+             </div>
+        </div>
+    </div>
+
+            <div id="dropDownSelect1"></div>
+
+            <!--===============================================================================================-->
+            <script src="~/vendor/jquery/jquery-3.2.1.min.js"></script>
+            <!--===============================================================================================-->
+            <script src="~/vendor/animsition/js/animsition.min.js"></script>
+            <!--===============================================================================================-->
+            <script src="~/vendor/bootstrap/js/popper.js"></script>
+            <script src="~/vendor/bootstrap/js/bootstrap.min.js"></script>
+            <!--===============================================================================================-->
+            <script src="~/vendor/select2/select2.min.js"></script>
+            <!--===============================================================================================-->
+            <script src="~/vendor/daterangepicker/moment.min.js"></script>
+            <script src="~/vendor/daterangepicker/daterangepicker.js"></script>
+            <!--===============================================================================================-->
+            <script src="~/vendor/countdowntime/countdowntime.js"></script>
+            <!--===============================================================================================-->
+
+            <script src="~/Scripts/SignUp/js/main.js"></script>
+
+            </body>
+</html>
+
+

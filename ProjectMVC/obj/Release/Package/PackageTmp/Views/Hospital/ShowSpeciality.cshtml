@@ -1,0 +1,41 @@
+﻿@model IEnumerable<ProjectMVC.Context.Specialty>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutHospital.cshtml";
+}
+
+<br />
+<p>
+    @Html.ActionLink("Add New Speciality ", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            <label> Hospital Name</label>
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Hospital.Name)
+            </td>*@
+            <td>
+                @Html.ActionLink("Show All reservations", "ShowReservation", new { id = item.ID }) |
+
+                @*@Html.ActionLink("Delete", "Delete", new { id = item.ID })*@
+            </td>
+        </tr>
+    }
+
+</table>
+

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4d84845bd65f40a6ae646f02e4192ba1" Name="Diagram1" ZoomLevel="72">
+        <EntityTypeShape EntityType="HMSModel.Doctor" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.Hospital" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.Illness" Width="1.5" PointX="3" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.OutpatientClinic" Width="1.5" PointX="5.25" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.Patient" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.PatientDoctor" Width="1.5" PointX="5.25" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.Reservation" Width="1.5" PointX="7.5" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.RoleUser" Width="1.5" PointX="5.25" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.Specialty" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.UserAccount" Width="1.5" PointX="7.5" PointY="0.875" IsExpanded="true" />
+        <AssociationConnector Association="HMSModel.FK__Doctor__Hospital__4E88ABD4" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK__Doctor__Specialt__4D94879B" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK__Outpatien__Docto__5629CD9C" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK__PatientDo__Docto__5165187F" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK__Reservati__Hospi__59FA5E80" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK__UserAccou__Hospi__619B8048" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK__Illness__Special__4AB81AF0" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK__PatientDo__Illne__534D60F1" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK__Reservati__BookI__5BE2A6F2" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK__PatientDo__Patie__52593CB8" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK__Reservati__Patie__59063A47" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK__UserAccou__Patie__628FA481" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK__Reservati__Speci__5AEE82B9" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK__UserAccou__RoleI__60A75C0F" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="HMSModel.HospitalsApi" Width="1.5" PointX="7.375" PointY="8.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

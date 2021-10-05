@@ -1,0 +1,70 @@
+﻿@model IEnumerable<ProjectMVC.Context.Reservation>
+
+@{
+    ViewBag.Title = "MyReservation";
+
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<h2>MyReservation</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ReservationDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PatientID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HospitalID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SpecialtyID)
+        </th>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.AdmitOrDecline)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReservationDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Patient.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Hospital.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Specialty.Name)
+        </td>
+
+
+        <td>
+
+            @{ 
+                var x = item.AdmitOrDecline;
+                if (x == true)
+                { <p>Confirm</p>}
+                else if (x == false)
+                { <p>Reject</p>}
+                else {<p> Not yet</p>}
+            }
+
+
+        </td>
+        
+        <td>
+            @Html.ActionLink("Cancel Reservation", "CancelReservation", new { id = item.ID })
+            @Html.ActionLink("Add Diagnosis", "AddDiagnosis", new { id = item.HospitalID })
+        </td>
+
+    </tr>
+}
+
+</table>

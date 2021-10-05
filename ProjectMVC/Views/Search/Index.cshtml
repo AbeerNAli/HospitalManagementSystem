@@ -1,0 +1,44 @@
+﻿@model IEnumerable<ProjectMVC.Context.Hospital>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            
+
+        </tr>
+    }
+
+</table>
+
+@section Scripts{
+
+    <link href="~/Content/jquery-ui-1.9.2.custom.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.8.3.js"></script>
+    <script src="~/Scripts/jquery-ui-1.9.2.custom.min.js"></script>
+    <script type="text/javascript">
+    $(function () {
+        $("#txtSearch").autocomplete({
+            source: '@Url.Action("GetHospitals")',
+            minLength: 1
+        });
+    });
+    </script>
+}

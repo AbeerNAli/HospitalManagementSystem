@@ -1,0 +1,119 @@
+﻿@model ProjectMVC.ViewModel.HistoryIllness
+
+@{
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+    ViewBag.Title = "Diagnosis";
+}
+
+<h2> ADD Diagnosis</h2>
+
+<div class=" alert alert-success" id="successAdd" style="display:none">
+    <strong> Insert Successful </strong>
+</div><div class=" alert alert-danger" id="failedAdd" style="display:none">
+    <strong id="noday"> Insertes Failed</strong>
+</div>
+
+      <form id="New">
+          <div>
+              @Html.LabelFor(x => x.SpecialityId)
+              @Html.DropDownListFor(y => y.SpecialityId, new SelectList(Model.Specialties, "ID", "Name"), "Sellect Speciality", new { @class = "form-control" })
+              @Html.ValidationMessageFor(x => x.SpecialityId)
+
+          </div>
+          <div>
+              @Html.LabelFor(x => x.IllnessID)
+              @Html.DropDownListFor(y => y.IllnessID, new List<SelectListItem>(), new { @class = "form-control" })
+              @Html.ValidationMessageFor(x => x.IllnessID)
+          </div>
+          <div>
+              @Html.LabelFor(x => x.DoctorId)
+              @Html.DropDownListFor(y => y.DoctorId, new List<SelectListItem>(), new { @class = "form-control" })
+              @Html.ValidationMessageFor(x => x.DoctorId)
+          </div>
+
+          <div>
+              @Html.LabelFor(x => x.Diagnosis)
+              @Html.TextBoxFor(x => x.Diagnosis, new { @class = "form-control" })
+
+              @Html.ValidationMessageFor(x => x.Diagnosis)
+          </div> <br /><br />
+          <button type="button" class="btn btn-primary" id="Save">Save</button>
+
+      </form>
+
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="~/Scripts/jquery-ui.min.js"></script>
+    <link href="~/Scripts/jquery-ui.min.css" rel="stylesheet" />
+
+    <script>
+        $(document).ready(function () {
+            $("#SpecialityId").change(function () {
+                Speciality = $(this).val();
+                // Hospital = $('#HospitalId').val();
+                $.ajax({
+                    type: "GET",
+                    url: "http://localhost:62277/User/GetDoctor2?Sid=" + Speciality,
+
+                    success: function (response) {
+
+                        $("#DoctorId").empty();
+                        $("#DoctorId").append("<option>Please Select the Doctor</option>")
+
+                        response.forEach(function (entry) {
+                            $("#DoctorId").append("<option value =" + entry.ID + ">" + entry.Name + "</option>")
+                        });
+
+                    }
+                })
+
+            })
+
+            $("#SpecialityId").change(function () {
+                // speciality = $(this).val();
+                Speciality = $('#SpecialityId').val();
+                // Hospital = $('#HospitalId').val();
+                $.ajax({
+                    type: "GET",
+                    url: "http://localhost:62277/User/GetIllness?id=" + Speciality,
+
+                    success: function (response) {
+
+                        $("#IllnessID").empty();
+                        $("#IllnessID").append("<option>Please Select the Illness</option>")
+
+                        response.forEach(function (entry) {
+                            $("#IllnessID").append("<option value =" + entry.ID + ">" + entry.Name + "</option>")
+                        });
+
+                    }
+                })
+
+            })
+
+            $("#Save").click(function () {
+                if ($("#New").valid()) {
+                    myData = $("#New").serialize();
+                    $.ajax({
+                        type: "POST",
+                        url: "http://localhost:62277/User/AddDiagnosis",
+                        data: myData,
+                        success: function (response) {
+                            if (response.result == 1) {
+                                $("#successAdd").show(1000);
+                                $("#successAdd").hide(3000);
+                            } else {
+                                $("#failedAdd").show(1000);
+                                $("#failedAdd").hide();
+                            }
+
+                        }
+                    })
+                }
+            })
+        })
+    </script>
+}
